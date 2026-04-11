@@ -5,23 +5,20 @@
 - ✅ Git init
 - ✅ SSH configuré
 - ✅ Fichiers au bon endroit (`ai-memory/projects/monitoring-ai-machine/`)
+- ✅ Repository GitHub créé
+- ✅ Code poussé vers GitHub
+
+## Repository
+- **URL:** https://github.com/clara-andydesjardins/monitoring-ai-machine
+- **Branch:** main
+- **Commits:** 2 commits
 
 ## Pending
-- ❌ Créer repository GitHub manuellement
-- ❌ Push vers GitHub
-- ❌ Configurer bot token
+- ❌ Configurer bot token dans `config.env`
 - ❌ Installer cron job
+- ❌ Tester monitoring
 
-## Action Required
-Créer le repo GitHub:
-- URL: https://github.com/new
-- Name: `monitoring-ai-machine`
-- Owner: `Maison-Desjardins-de-Gore`
-- Public/Private: selon préférence
-
-Après création:
-```bash
-cd /home/node/ai-memory/projects/monitoring-ai-machine
-git remote set-url origin git@github.com:Maison-Desjardins-de-Gore/monitoring-ai-machine.git
-git push -u origin main
-```
+## Next Steps
+1. Ajouter ton bot token Telegram à `config.env`
+2. Installer le cron job: `*/10 * * * * /path/to/monitor.sh`
+3. Tester le monitoring
