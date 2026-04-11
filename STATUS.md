@@ -18,6 +18,10 @@
 - ❌ Installer cron job
 - ❌ Tester monitoring
 
+## Notes
+- Repository principal dans l'organisation `Maison-Desjardins-de-Gore`
+- Ancien repo personnel (clara-andydesjardins) doit être supprimé manuellement
+
 ## Next Steps
 1. Ajouter ton bot token Telegram à `config.env`
 2. Installer le cron job: `*/10 * * * * /home/node/ai-memory/projects/monitoring-ai-machine/monitor.sh`
