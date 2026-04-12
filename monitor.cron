@@ -1,0 +1,1 @@
+*/10 * * * * /home/node/ai-projects/monitoring-ai-machine/monitor.sh >> /home/node/ai-projects/monitoring-ai-machine/monitor.log 2>&1
