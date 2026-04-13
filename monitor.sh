@@ -58,7 +58,7 @@ ERROR_LOGS=""
 
 for container in "${CONTAINERS[@]}"; do
     # Check if container is running
-    if [ "$(docker inspect -f '{{.State.Running}}' $container 2>/dev/docker_check_err 2>/dev/null)" = "true" ]; then
+    if [ "$(docker inspect -f '{{.State.Running}}' $container 2>/dev/null)" = "true" ]; then
         MSG+="✅ $container: Running\n"
         
         # Check for recent errors in logs (last 10 mins)

@@ -1,14 +1,13 @@
 #!/bin/bash
-
 # Setup script for monitoring-ai-machine cron job
-# This script should be run by the user 'andy'
+# This script should be run by the user 'andy' in the WSL parent environment.
 
 # Use the directory where the script is located to avoid absolute path issues
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WRAPPER_SCRIPT="$PROJECT_DIR/run_monitor_wrapper.sh"
 CRON_CMD="*/10 * * * * $WRAPPER_SCRIPT"
 
-echo "🚀 Starting setup for monitoring-ai-machine..."
+echo "🚀 Starting setup for monitoring-ai-machine cron job..."
 
 # 1. Create the wrapper script that loads the token from the secure path
 echo "📝 Creating wrapper script: $WRAPPER_SCRIPT"
@@ -19,16 +18,16 @@ cat << 'WRAPPER_EOF' > "$WRAPPER_SCRIPT"
 # Use the directory where the script is located
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Load the path from bot_token.env
-if [ -f "$PROJECT_DIR/bot_token.env" ]; then
-    source "$PROJECT_DIR/bot_token.env"
+# Load the config from config.env
+if [ -f "$PROJECT_DIR/config.env" ]; then
+    source "$PROJECT_DIR/config.env"
 else
-    echo "❌ Error: bot_token.env not found in $PROJECT_DIR"
+    echo "❌ Error: config.env not found in $PROJECT_DIR"
     exit 1
 fi
 
 # Load the token from the secure path
-if [ -f "$BOT_TOKEN_FILE_PATH" ]; then
+if [ -n "$BOT_TOKEN_FILE_PATH" ] && [ -f "$BOT_TOKEN_FILE_PATH" ]; then
     export TELEGRAM_BOT_TOKEN=$(cat "$BOT_TOKEN_FILE_PATH")
     echo "✅ Token loaded from $BOT_TOKEN_FILE_PATH"
 else
@@ -42,9 +41,11 @@ WRAPPER_EOF
 
 chmod +x "$WRAPPER_SCRIPT"
 
-# 2. Install the cron job
-echo "📅 Installing cron job: $CRON_CMD"
-(crontab -l 2>/dev/null; echo "$CRON_CMD") | crontab -
-
-echo "✅ Setup complete! The monitoring script is now scheduled to run every 10 minutes."
-echo "👉 Make sure you have created '$PROJECT_DIR/bot_token.env' with the correct path to your secret token."
+# 2. Output the cron command for the user to add manually
+echo ""
+echo "✅ Wrapper script created and made executable."
+echo ""
+echo "👉 To install the cron job in your WSL parent environment, run:"
+echo "   (crontab -l 2>/dev/null; echo \"$CRON_CMD\") | crontab -"
+echo ""
+echo "⚠️  Make sure the path in $WRAPPER_SCRIPT is correct for your WSL environment."
